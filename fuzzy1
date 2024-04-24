@@ -1,0 +1,104 @@
+def triangular_mf(value, left, center, right):
+    if value < left:
+        return 0
+    elif value <= center:
+        return (value - left) / (center - left)
+    elif value <= right:
+        return (right - value) / (right - center)
+    else:
+        return 0
+
+
+temp = float(input("Enter Temperature value : "))
+pressure = float(input("Enter Pressure value : "))
+
+
+def rule1_t(temp_value):
+    user_t1 = ["low","below_avg","average","above_avg","high"]
+    t1_input = input("Rule 1: If Temperature is : ")
+
+    temp_mf_low = triangular_mf(temp_value, -5, 10,25)
+    temp_mf_below_avg = triangular_mf(temp_value, 15, 30, 45)
+    temp_mf_avg = triangular_mf(temp_value, 40, 50,60)
+    temp_mf_above_avg = triangular_mf(temp_value, 55, 70,85)
+    temp_mf_high = triangular_mf(temp_value,75,90,105)
+
+    if t1_input == "low":
+        return (temp_mf_low)
+    elif t1_input == "below_avg":
+        return (temp_mf_below_avg)
+    elif t1_input == "average":
+        return (temp_mf_avg)
+    elif t1_input == "above_avg":
+        return (temp_mf_above_avg)
+    elif t1_input == "high":
+        return (temp_mf_high)
+
+def rule1_p(pressure_value):
+    user_p1 = ["low","below_avg","average","above_avg","high"]
+    p1_input = input("Rule 1: If Pressure is : ")
+
+    pressure_mf_low = triangular_mf(pressure_value, 0.25, 1, 1.75)
+    pressure_mf_below_avg = triangular_mf(pressure_value, 1.25, 2, 2.75)
+    pressure_mf_avg = triangular_mf(pressure_value, 2, 3, 4)
+    pressure_mf_above_avg = triangular_mf(pressure_value, 3.25, 4, 4.75)
+    pressure_mf_high = triangular_mf(pressure_value, 4.25, 5, 5.75)
+
+    if p1_input == "low":
+        return (pressure_mf_low)
+    elif p1_input == "below_avg":
+        return (pressure_mf_below_avg)
+    elif p1_input == "average":
+        return (pressure_mf_avg)
+    elif p1_input == "above_avg":
+        return (pressure_mf_above_avg)
+    elif p1_input == "high":
+        return (pressure_mf_high)
+
+def rule2_t(temp_value):
+    user_t2 = ["low","below_avg","average","above_avg","high"]
+    t2_input = input("Rule 2: If Temperature is : ")
+
+    temp_mf_low = triangular_mf(temp_value, -5, 10,25)
+    temp_mf_below_avg = triangular_mf(temp_value, 15, 30, 45)
+    temp_mf_avg = triangular_mf(temp_value, 40, 50,60)
+    temp_mf_above_avg = triangular_mf(temp_value, 55, 70,85)
+    temp_mf_high = triangular_mf(temp_value,75,90,105)
+
+    if t2_input == "low":
+        return (temp_mf_low)
+    elif t2_input == "below_avg":
+        return (temp_mf_below_avg)
+    elif t2_input == "average":
+        return (temp_mf_avg)
+    elif t2_input == "above_avg":
+        return (temp_mf_above_avg)
+    elif t2_input == "high":
+        return (temp_mf_high)
+
+def rule2_p(pressure_value):
+    user_p2 = ["low","below_avg","average","above_avg","high"]
+    p2_input = input("Rule 2: If Pressure is : ")
+
+    pressure_mf_low = triangular_mf(pressure_value, 0.25, 1, 1.75)
+    pressure_mf_below_avg = triangular_mf(pressure_value, 1.25, 2, 2.75)
+    pressure_mf_avg = triangular_mf(pressure_value, 2, 3, 4)
+    pressure_mf_above_avg = triangular_mf(pressure_value, 3.25, 4, 4.75)
+    pressure_mf_high = triangular_mf(pressure_value, 4.25, 5, 5.75)
+
+    if p2_input == "low":
+        return (pressure_mf_low)
+    elif p2_input == "below_avg":
+        return (pressure_mf_below_avg)
+    elif p2_input == "average":
+        return (pressure_mf_avg)
+    elif p2_input == "above_avg":
+        return (pressure_mf_above_avg)
+    elif p2_input == "high":
+        return (pressure_mf_high)
+
+z1_t = rule1_t(temp)
+z1_p = rule1_p(pressure)
+z2_t = rule2_t(temp)
+z2_p = rule2_p(pressure)
+print(f"\nFuzzification\nZ1 is: {min(z1_t,z1_p)}",f" &  Z2 is: {min(z2_t,z2_p)}\n")
