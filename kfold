@@ -1,0 +1,63 @@
+from sklearn.datasets import make_classification
+
+from numpy import mean
+
+from numpy import std
+
+from sklearn.model_selection import LeaveOneOut
+
+from sklearn.model_selection import KFold
+
+from sklearn.model_selection import cross_val_score
+
+from sklearn.linear_model import LogisticRegression
+
+
+
+def get_dataset(n_samples=100):
+
+    X, y = make_classification(n_samples=n_samples, n_features=4, n_informative=2, n_redundant=1, random_state=1)
+
+    return X, y
+
+
+
+def get_model():
+
+    model = LogisticRegression()
+
+    return model
+
+
+
+def evaluate_model(cv):
+
+    X,y = get_dataset()
+
+    model = get_model()
+
+    scores = cross_val_score(model, X, y, scoring = "accuracy", cv=cv, n_jobs = -1)
+
+    return mean(scores), scores.min(), scores.max()
+
+
+
+ideal, _,_ = evaluate_model(LeaveOneOut())
+
+print('Ideal: %.3f' % ideal)
+
+
+
+folds = range(2,11)
+
+
+
+means, mins, maxs = list(), list(), list()
+
+for k in folds :
+
+    cv = KFold(n_splits=k, shuffle=True, random_state=1)
+
+    k_mean, k_min, k_max = evaluate_model(cv)
+
+    print('> folds = %d, accuracy = %.3f (%.3f,%.3f)' % (k,k_mean,k_min,k_max))
