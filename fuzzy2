@@ -1,0 +1,174 @@
+def area1(left, center, right):
+    return 0.5*(right - left)*1
+
+cen1a= [1,2,3,4,5]
+cons1a_input = input("Rule 1: Then Heating Power is : ")
+if cons1a_input == "low":
+    cen1a=cen1a[0]
+elif cons1a_input == "below_avg":
+    cen1a=cen1a[1]
+elif cons1a_input == "average":
+    cen1a=cen1a[2]
+elif cons1a_input == "above_avg":
+    cen1a=cen1a[3]
+elif cons1a_input == "high":
+    cen1a=cen1a[4]
+
+cen1b= [1,2,3,4,5]
+cons1b_input = input("Rule 1: Then Valve Opening is : ")
+if cons1b_input == "low":
+    cen1b=cen1b[0]
+elif cons1b_input == "below_avg":
+    cen1b=cen1b[1]
+elif cons1b_input == "average":
+    cen1b=cen1b[2]
+elif cons1b_input == "above_avg":
+    cen1b=cen1b[3]
+elif cons1b_input == "high":
+    cen1b=cen1b[4]
+
+cen2a= [1,2,3,4,5]
+cons2a_input = input("Rule 2: Then Heating Power is : ")
+if cons2a_input == "low":
+    cen2a=cen2a[0]
+elif cons2a_input == "below_avg":
+    cen2a=cen2a[1]
+elif cons2a_input == "average":
+    cen2a=cen2a[2]
+elif cons2a_input == "above_avg":
+    cen2a=cen2a[3]
+elif cons2a_input == "high":
+    cen2a=cen2a[4]
+
+cen2b= [1,2,3,4,5]
+cons2b_input = input("Rule 2: Then Valve Opening is : ")
+if cons2b_input == "low":
+    cen2b=cen2b[0]
+elif cons2b_input == "below_avg":
+    cen2b=cen2b[1]
+elif cons2b_input == "average":
+    cen2b=cen2b[2]
+elif cons2b_input == "above_avg":
+    cen2b=cen2b[3]
+elif cons2b_input == "high":
+    cen2b=cen2b[4]
+
+hp1 = []
+
+def cons1a(hp):
+
+    hp_mf_low = area1(0.25, 1, 1.75)
+    hp1.append(hp_mf_low)
+    hp_mf_below_avg = area1(1.25, 2, 2.75)
+    hp1.append(hp_mf_below_avg)
+    hp_mf_avg = area1(2, 3, 4)
+    hp1.append(hp_mf_avg)
+    hp_mf_above_avg = area1(3.25, 4, 4.75)
+    hp1.append(hp_mf_above_avg)
+    hp_mf_high = area1(4.25, 5, 5.75)
+    hp1.append(hp_mf_high)
+
+    if cons1a_input == "low":
+        return hp1[0]
+    elif cons1a_input == "below_avg":
+        return hp1[1]
+    elif cons1a_input == "average":
+        return hp1[2]
+    elif cons1a_input == "above_avg":
+        return hp1[3]
+    elif cons1a_input == "high":
+        return hp1[4]
+    else:
+        print("Invalid Input!!!")
+
+hp2 = []
+
+def cons2a(hp):
+
+    hp_mf_low = area1(0.25, 1, 1.75)
+    hp2.append(hp_mf_low)
+    hp_mf_below_avg = area1(1.25, 2, 2.75)
+    hp2.append(hp_mf_below_avg)
+    hp_mf_avg = area1(2, 3, 4)
+    hp2.append(hp_mf_avg)
+    hp_mf_above_avg = area1(3.25, 4, 4.75)
+    hp2.append(hp_mf_above_avg)
+    hp_mf_high = area1(4.25, 5, 5.75)
+    hp2.append(hp_mf_high)
+
+    if cons2a_input == "low":
+        return hp2[0]
+    elif cons2a_input == "below_avg":
+        return hp2[1]
+    elif cons2a_input == "average":
+        return hp2[2]
+    elif cons2a_input == "above_avg":
+        return hp2[3]
+    elif cons2a_input == "high":
+        return hp2[4]
+    else:
+        print("Invalid Input!!!")
+
+
+defuzz_hp = ((min(z1_t,z1_p)*cons1a(hp1)*cen1a) + (min(z2_t,z2_p)*cons2a(hp2)*cen2a)) / ((min(z1_t,z1_p)*cons1a(hp1)) + (min(z2_t,z2_p)*cons2a(hp2)))
+
+vo1 = []
+
+def cons1b(vo):
+
+    vo_mf_low = area1(0.25, 1, 1.75)
+    vo1.append(vo_mf_low)
+    vo_mf_below_avg = area1(1.25, 2, 2.75)
+    vo1.append(vo_mf_below_avg)
+    vo_mf_avg = area1(2, 3, 4)
+    vo1.append(vo_mf_avg)
+    vo_mf_above_avg = area1(3.25, 4, 4.75)
+    vo1.append(vo_mf_above_avg)
+    vo_mf_high = area1(4.25, 5, 5.75)
+    vo1.append(vo_mf_high)
+
+    if cons1b_input == "low":
+        return vo1[0]
+    elif cons1b_input == "below_avg":
+        return vo1[1]
+    elif cons1b_input == "average":
+        return vo1[2]
+    elif cons1b_input == "above_avg":
+        return vo1[3]
+    elif cons1b_input == "high":
+        return vo1[4]
+    else:
+        print("Invalid Input!!!")
+
+vo2 = []
+
+def cons2b(vo):
+
+    vo_mf_low = area1(0.25, 1, 1.75)
+    vo2.append(vo_mf_low)
+    vo_mf_below_avg = area1(1.25, 2, 2.75)
+    vo2.append(vo_mf_below_avg)
+    vo_mf_avg = area1(2, 3, 4)
+    vo2.append(vo_mf_avg)
+    vo_mf_above_avg = area1(3.25, 4, 4.75)
+    vo2.append(vo_mf_above_avg)
+    vo_mf_high = area1(4.25, 5, 5.75)
+    vo2.append(vo_mf_high)
+
+    if cons2b_input == "low":
+        return vo2[0]
+    elif cons2b_input == "below_avg":
+        return vo2[1]
+    elif cons2b_input == "average":
+        return vo2[2]
+    elif cons2b_input == "above_avg":
+        return vo2[3]
+    elif cons2b_input == "high":
+        return vo2[4]
+    else:
+        print("Invalid Input!!!")
+
+
+defuzz_vo = ((min(z1_t,z1_p)*cons1a(hp1)*cen1b) + (min(z2_t,z2_p)*cons2a(hp2)*cen2b)) / ((min(z1_t,z1_p)*cons1a(hp1)) + (min(z2_t,z2_p)*cons2a(hp2)))
+
+print(f"\nDefuzzification\nThe crisp value for Heating Power is : {defuzz_hp}\nThe crisp value for Valve Opening is : {defuzz_vo}")
