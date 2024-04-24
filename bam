@@ -1,0 +1,132 @@
+import numpy as np
+
+
+
+
+n = 5  # Dimension of Fx
+
+p = 4  # Dimension of Fy
+
+q = 2  # Number of associations
+
+
+
+
+# Specify Fx vectors
+
+x = np.array([[0, 1, 0, 1, 0], [1, 1, 0, 0, 0]])
+
+
+
+
+# Specify Fy vectors
+
+y = np.array([[1, 0, 0, 1], [0, 1, 0, 1]])
+
+
+
+
+# Convert to bipolar
+
+bip_mem_vecsx = 2 * x - 1
+
+bip_mem_vecsy = 2 * y - 1
+
+
+
+
+# Initialize weight matrix
+
+wt_matrix = np.zeros((n, p))
+
+
+
+
+# Compute weight matrix
+
+for i in range(q):
+
+    wt_matrix += np.outer(bip_mem_vecsx[i], bip_mem_vecsy[i])
+
+
+
+
+k = 1  # Set up time index
+
+probe = np.array([0, 1, 0, 1, 1])  # Set up probe
+
+signal_x = 2 * probe - 1  # Set Fx signals to probe
+
+signal_y = np.random.randint(2, size=p) * 2 - 1  # Randomize Fy signals
+
+
+
+
+pattern_x = np.zeros((1, n))
+
+pattern_y = np.zeros((1, p))
+
+
+
+
+pattern_x[0] = signal_x
+
+pattern_y[0] = signal_y
+
+
+
+
+flag = 0  # Indicates bidirectional equilibrium
+
+
+
+
+while flag != 1:
+
+    act_y = signal_x @ wt_matrix  # Compute Fx activations
+
+    signal_y = np.where(act_y > 0, 1, -1)  # Set up Fy signals
+
+
+
+
+    if k > 1:
+
+        compare_y = np.array_equal(signal_y, pattern_y[-1])
+
+    else:
+
+        compare_y = 0
+
+
+
+
+    pattern_y = np.vstack((pattern_y, signal_y))
+
+
+
+
+    act_x = signal_y @ wt_matrix.T  # Compute activations of Fx
+
+    signal_x = np.where(act_x > 0, 1, -1)  # Set up Fx signals
+
+
+
+
+    k += 1  # Increment time
+
+    compare_x = np.array_equal(signal_x, pattern_x[-1])  # Compare
+
+    pattern_x = np.vstack((pattern_x, signal_x))  # and store the signal on Fx
+
+
+
+
+    flag = compare_x * compare_y  # Check for bidirectional equilibrium
+
+
+
+
+print(pattern_x)
+
+print(pattern_y)
