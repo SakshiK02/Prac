@@ -1,0 +1,101 @@
+import numpy as np
+
+
+
+
+# Memory vectors
+
+mem_vectors = np.array([
+
+    [1, 1, 0, 0, 0, 0],
+
+    [0, 0, 0, 0, 1, 1],
+
+    [0, 0, 1, 1, 0, 0]
+
+])
+
+
+
+
+q = mem_vectors.shape[0]  # number of vectors
+
+n = mem_vectors.shape[1]  # dim of vectors
+
+
+
+
+# Convert to bipolar vectors
+
+bip_mem_vecs = 2 * mem_vectors - 1
+
+
+
+
+# Initialize and compute the weight matrix
+
+zd_wt_mat = np.zeros((n, n))
+
+for i in range(q):
+
+    zd_wt_mat += np.outer(bip_mem_vecs[i], bip_mem_vecs[i])
+
+
+
+
+zd_wt_mat -= q * np.eye(n)  # Zero diagonal
+
+
+
+
+# Input the probe vector
+
+probe = input('Enter the probe vector:')
+
+probe = np.fromstring(probe,sep=",")
+
+# Convert to bipolar
+
+signal_vector = 2 * probe - 1
+
+
+
+
+flag = 0  # Initialize flag
+
+while flag != n:
+
+    permindex = np.random.permutation(n)  # Randomize order
+
+    old_signal_vector = np.copy(signal_vector)
+
+
+
+
+    for j in range(n):
+
+        act_vec = signal_vector @ zd_wt_mat
+
+        if act_vec[permindex[j]] > 0:
+
+            signal_vector[permindex[j]] = 1
+
+        elif act_vec[permindex[j]] < 0:
+
+            signal_vector[permindex[j]] = -1
+
+
+
+
+    flag = signal_vector @ old_signal_vector
+
+
+
+
+# Output recalled vector
+
+recalled_vector = 0.5 * (signal_vector + 1)
+
+print('The recalled vector is:')
+
+print(recalled_vector)
